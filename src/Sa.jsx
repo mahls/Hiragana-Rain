@@ -3,12 +3,13 @@ import { motion } from 'framer-motion';
 
 // Data: Hiragana characters and their corresponding Romaji
 const hiraganaData = [
-    { character: 'か', romaji: 'ka' },
-    { character: 'き', romaji: 'ki' },
-    { character: 'く', romaji: 'ku' },
-    { character: 'け', romaji: 'ke' },
-    { character: 'こ', romaji: 'ko' }
+    { character: 'さ', romaji: 'sa' },
+    { character: 'し', romaji: 'shi' },
+    { character: 'す', romaji: 'su' },
+    { character: 'せ', romaji: 'se' },
+    { character: 'そ', romaji: 'so' }
   ];
+  
   
 
 // Function to shuffle an array (for randomizing the multiple choice options)

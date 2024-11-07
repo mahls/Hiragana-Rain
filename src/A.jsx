@@ -114,7 +114,7 @@ const A = () => {
       </div>
 
       {/* Display score */}
-      <div className="mt-4 text-lg text-white">
+      <div className="mt-4 text-lg text-white mt-10">
         <motion.p
           className="font-bold"
           initial={{ opacity: 0 }}

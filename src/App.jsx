@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import Tabs from './Tabs';
 import A from './A'
 import Ka from './Ka'
+import Sa from './Sa'
 import Nav from './Nav'
 import React from 'react';
 
@@ -18,8 +19,8 @@ function App() {
       tabContent: <Ka/>,
     },
     {
-      tabLabel: '3',
-      tabContent: <div>This is content for Tab 3.</div>,
+      tabLabel: 'さ',
+      tabContent: <Sa/>,
     },
     {
       tabLabel: '4',
