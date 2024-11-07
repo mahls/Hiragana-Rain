@@ -9,7 +9,7 @@ const Tabs = ({ tabsData }) => {
   return (
     <div>
       {/* Tab Buttons */}
-      <div className="flex bg-stone-900 px-2 justify-center flex-wrap text-xs pt-4 border-gray-300 mb-4 mt-4">
+      <div className="flex bg-stone-900 px-2 justify-center flex-wrap text-xs pt-4 border-gray-300 ">
         {tabsData.map((tab, index) => (
           <button
             key={index}

@@ -69,7 +69,7 @@ const A = () => {
     }
 
     // Generate a new question after 1 second
-    setTimeout(generateNewQuestion, 1000);
+    setTimeout(generateNewQuestion, 200);
 
     // Fade out score change after 2 seconds
     setTimeout(() => {
@@ -81,31 +81,31 @@ const A = () => {
     <div className="max-w-md mx-auto mt-2 p-6 text-white text-center">
 
       {/* Display the current Hiragana character with animation */}
-      <motion.div className="text-6xl font-bold mb-4 mt-10">
+      <motion.div className="text-6xl font-bold mb-4 mt-">
         {currentQuestion ? currentQuestion.character : '...'}
       </motion.div>
 
       {/* Display score change (e.g., +500) */}
       {scoreChange && (
         <motion.div
-        initial={{ opacity: 0, y:0 }}
-        animate={{ opacity: 1, y: -200 }} // Fade in
-        exit={{ opacity: 0 }}    // Fade out
-        transition={{ duration: 2 }} // Slow fade-out after 2 seconds
-        key={score}               // Trigger re-render and animation when score changes
-        className={`fixed z-50`}
-      >
+          initial={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: -200 }} // Fade in
+          exit={{ opacity: 0 }}    // Fade out
+          transition={{ duration: 1 }} // Slow fade-out after 2 seconds
+          key={score}               // Trigger re-render and animation when score changes
+          className={`fixed z-50`}
+        >
           {scoreChange}
         </motion.div>
       )}
 
-      {/* Display options as clickable buttons */}
-      <div className="transition space-y-4 mt-10 relative">
+      {/* Display options as clickable buttons side by side */}
+      <div className="flex space-x-4 mt-10">
         {options.map((option, index) => (
           <motion.button
             key={index}
             onClick={() => handleAnswer(option.romaji)}
-            className="w-full py-2 px-4 bg-stone-700 text-white rounded-md shadow-md hover:bg-stone-600 transition-all duration-200"
+            className="flex-1 py-2 px-4 bg-stone-800 text-white rounded-md shadow-md hover:bg-stone-600 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
           >
             {option.romaji}
