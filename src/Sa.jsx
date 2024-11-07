@@ -10,13 +10,6 @@ const hiraganaData = [
     { character: 'そ', romaji: 'so' }
   ];
   
-  
-
-// Function to shuffle an array (for randomizing the multiple choice options)
-const shuffleArray = (array) => {
-  return array.sort(() => Math.random() - 0.5);
-};
-
 const A = () => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [options, setOptions] = useState([]);
@@ -34,17 +27,16 @@ const A = () => {
     const randomIndex = Math.floor(Math.random() * hiraganaData.length);
     const correctAnswer = hiraganaData[randomIndex];
 
-    // Get the correct answer and 3 random wrong answers
-    const wrongAnswers = hiraganaData
-      .filter((item) => item.romaji !== correctAnswer.romaji)
-      .sort(() => Math.random() - 0.5) // Shuffle the wrong answers
-      .slice(0, 3); // Take only 3 wrong answers
+    // Create a fixed list of all possible answers (always a, e, i, o, u)
+    const allAnswers = ['a', 'e', 'i', 'o', 'u'];
 
-    // Combine correct answer with wrong answers and shuffle
-    const allOptions = shuffleArray([correctAnswer, ...wrongAnswers]);
+    // Get the correct answer and 4 options
+    const options = allAnswers.map(romaji => {
+      return hiraganaData.find(item => item.romaji === romaji);
+    });
 
     setCurrentQuestion(correctAnswer);
-    setOptions(allOptions);
+    setOptions(options);
   };
 
   // Function to handle a user's selection
@@ -71,7 +63,7 @@ const A = () => {
     }
 
     // Generate a new question after 1 second
-    setTimeout(generateNewQuestion, 1000);
+    setTimeout(generateNewQuestion, 200);
 
     // Fade out score change after 2 seconds
     setTimeout(() => {
@@ -81,42 +73,48 @@ const A = () => {
 
   return (
     <div className="max-w-md mx-auto mt-2 p-6 text-white text-center">
-
       {/* Display the current Hiragana character with animation */}
-      <motion.div className="text-6xl font-bold mb-4 mt-10">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, y: -5 }}
+        transition={{ duration: 1 }}
+  
+        className="text-6xl font-bold mb-4 mt-10"
+      >
         {currentQuestion ? currentQuestion.character : '...'}
       </motion.div>
 
       {/* Display score change (e.g., +500) */}
       {scoreChange && (
         <motion.div
-        initial={{ opacity: 0, y:0 }}
-        animate={{ opacity: 1, y: -200 }} // Fade in
-        exit={{ opacity: 0 }}    // Fade out
-        transition={{ duration: 2 }} // Slow fade-out after 2 seconds
-        key={score}               // Trigger re-render and animation when score changes
-        className={`fixed z-50`}
-      >
+          initial={{ opacity: 0, y: 0 }}
+          animate={{ opacity: 1, y: -200 }} // Fade in
+          exit={{ opacity: 0 }}    // Fade out
+          transition={{ duration: 1 }} // Slow fade-out after 2 seconds
+          key={score}               // Trigger re-render and animation when score changes
+          className={`fixed z-50`}
+        >
           {scoreChange}
         </motion.div>
       )}
 
-      {/* Display options as clickable buttons */}
-      <div className="transition space-y-4 mt-10 relative">
+      {/* Display options as clickable buttons side by side */}
+      <div className="flex space-x-4 mt-10">
         {options.map((option, index) => (
           <motion.button
             key={index}
             onClick={() => handleAnswer(option.romaji)}
-            className="w-full py-2 px-4 bg-stone-700 text-white rounded-md shadow-md hover:bg-stone-600 transition-all duration-200"
+            className="flex-1 py-2 px-4 bg-stone-800 text-white rounded-md shadow-md hover:bg-stone-600 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
           >
-            {option.romaji}
+            {option.romaji} 
           </motion.button>
         ))}
       </div>
 
       {/* Display score */}
-      <div className="mt-10 text-lg text-white">
+      <div className="mt-4 text-lg text-white mt-10">
         <motion.p
           className="font-bold"
           initial={{ opacity: 0 }}
