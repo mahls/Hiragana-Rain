@@ -60,7 +60,7 @@ function App() {
 
 
   return (
-    <div className='bg-stone-900 h-screen'>
+    <div className='bg-stone-900 min-h-screen '>
       <Nav/>
       <Tabs tabsData={tabsData} />
     </div>
