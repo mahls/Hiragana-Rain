@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-// Data: Hiragana characters and their corresponding Romaji
+// Data: Hiragana characters and their corresponding Romaji (for 'sa', 'shi', 'su', 'se', 'so')
 const hiraganaData = [
-    { character: 'さ', romaji: 'sa' },
-    { character: 'し', romaji: 'shi' },
-    { character: 'す', romaji: 'su' },
-    { character: 'せ', romaji: 'se' },
-    { character: 'そ', romaji: 'so' }
-  ];
-  
-const A = () => {
+  { character: 'さ', romaji: 'sa' },
+  { character: 'し', romaji: 'shi' },
+  { character: 'す', romaji: 'su' },
+  { character: 'せ', romaji: 'se' },
+  { character: 'そ', romaji: 'so' }
+];
+
+const Sa = () => {
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [options, setOptions] = useState([]);
   const [score, setScore] = useState(0);
@@ -27,16 +27,17 @@ const A = () => {
     const randomIndex = Math.floor(Math.random() * hiraganaData.length);
     const correctAnswer = hiraganaData[randomIndex];
 
-    // Create a fixed list of all possible answers (always a, e, i, o, u)
-    const allAnswers = ['a', 'e', 'i', 'o', 'u'];
+    // Create a fixed list of all possible answers (always sa, shi, su, se, so)
+    const allAnswers = ['sa', 'shi', 'su', 'se', 'so'];
 
     // Get the correct answer and 4 options
-    const options = allAnswers.map(romaji => {
+    const generatedOptions = allAnswers.map(romaji => {
       return hiraganaData.find(item => item.romaji === romaji);
     });
 
+    // Set the current question and options
     setCurrentQuestion(correctAnswer);
-    setOptions(options);
+    setOptions(generatedOptions);
   };
 
   // Function to handle a user's selection
@@ -45,7 +46,7 @@ const A = () => {
       // Correct answer
       const randomIncrement = Math.floor(Math.random() * (1000 - 100 + 1)) + 100;
       setScore(score + randomIncrement);
-      setScoreChange(`+${randomIncrement}`);
+      setScoreChange(`✅ +${randomIncrement}`);
 
       // Increase combo streak
       if (comboStreak + 1 === 10) {
@@ -59,7 +60,7 @@ const A = () => {
     } else {
       // Reset combo streak if answer is incorrect
       setComboStreak(0);
-      setScoreChange(`Incorrect! The correct answer was ${currentQuestion.romaji}`);
+      setScoreChange(`❌ ${currentQuestion.romaji}`);
     }
 
     // Generate a new question after 1 second
@@ -79,7 +80,6 @@ const A = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, y: -5 }}
         transition={{ duration: 1 }}
-  
         className="text-6xl font-bold mb-4 mt-10"
       >
         {currentQuestion ? currentQuestion.character : '...'}
@@ -108,7 +108,7 @@ const A = () => {
             className="flex-1 py-2 px-4 bg-stone-800 text-white rounded-md shadow-md hover:bg-stone-600 transition-all duration-200"
             whileHover={{ scale: 1.05 }}
           >
-            {option.romaji} 
+            {option.romaji}
           </motion.button>
         ))}
       </div>
@@ -130,4 +130,4 @@ const A = () => {
   );
 };
 
-export default A;
+export default Sa;

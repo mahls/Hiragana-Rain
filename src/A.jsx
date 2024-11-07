@@ -45,7 +45,7 @@ const A = () => {
       // Correct answer
       const randomIncrement = Math.floor(Math.random() * (1000 - 100 + 1)) + 100;
       setScore(score + randomIncrement);
-      setScoreChange(`+${randomIncrement}`);
+      setScoreChange(`✅ +${randomIncrement}`);
 
       // Increase combo streak
       if (comboStreak + 1 === 10) {
@@ -59,7 +59,7 @@ const A = () => {
     } else {
       // Reset combo streak if answer is incorrect
       setComboStreak(0);
-      setScoreChange(`Incorrect! The correct answer was ${currentQuestion.romaji}`);
+      setScoreChange(`❌${currentQuestion.romaji}`);
     }
 
     // Generate a new question after 1 second
